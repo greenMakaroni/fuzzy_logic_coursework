@@ -1,0 +1,50 @@
+[System]
+Name='rel_trimf'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Objectivity(%)'
+Range=[0 100]
+NumMFs=3
+MF1='weak':'trimf',[0 0 30]
+MF2='medium':'trimf',[20 50 80]
+MF3='strong':'trimf',[70 100 100]
+
+[Input2]
+Name='Accuracy(%)'
+Range=[0 100]
+NumMFs=3
+MF1='low':'trimf',[0 0 45]
+MF2='medium':'trimf',[30 50 70]
+MF3='high':'trimf',[55 100 100]
+
+[Output1]
+Name='Reliability(A-F)'
+Range=[0 7]
+NumMFs=6
+MF1='F':'trimf',[0 0 2]
+MF2='E':'trimf',[1 2 3]
+MF3='D':'trimf',[2 3 4]
+MF4='C':'trimf',[3 4 5]
+MF5='B':'trimf',[4 5 6]
+MF6='A':'trimf',[5 7 7]
+
+[Rules]
+3 3, 6 (1) : 1
+3 2, 5 (1) : 1
+3 1, 4 (1) : 1
+2 3, 5 (1) : 1
+2 2, 4 (1) : 1
+2 1, 3 (1) : 1
+1 3, 3 (1) : 1
+1 2, 2 (1) : 1
+1 1, 1 (1) : 1

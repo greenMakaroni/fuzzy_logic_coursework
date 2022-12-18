@@ -1,0 +1,50 @@
+[System]
+Name='rel_trapmf'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Objectivity(%)'
+Range=[0 100]
+NumMFs=3
+MF1='weak':'gbellmf',[17.44 3.406 17.44]
+MF2='medium':'gbellmf',[20 10 55]
+MF3='strong':'gbellmf',[14 3.5 94]
+
+[Input2]
+Name='Accuracy(%)'
+Range=[0 100]
+NumMFs=3
+MF1='low':'gbellmf',[23.5502645502645 6.36 16]
+MF2='medium':'gbellmf',[10 2.5 50]
+MF3='high':'gbellmf',[24 6 84]
+
+[Output1]
+Name='Reliability(A-F)'
+Range=[0 7]
+NumMFs=6
+MF1='F':'gbellmf',[0.824074074074074 3.12 0]
+MF2='E':'gbellmf',[0.5 2.5 2]
+MF3='D':'gbellmf',[0.5 2.5 3]
+MF4='C':'gbellmf',[0.5 2.5 4]
+MF5='B':'gbellmf',[0.5 2.5 5]
+MF6='A':'gbellmf',[0.67 4.24 6.70444444444444]
+
+[Rules]
+3 3, 6 (1) : 1
+3 2, 5 (1) : 1
+3 1, 4 (1) : 1
+2 3, 5 (1) : 1
+2 2, 4 (1) : 1
+2 1, 3 (1) : 1
+1 3, 3 (1) : 1
+1 2, 2 (1) : 1
+1 1, 1 (1) : 1

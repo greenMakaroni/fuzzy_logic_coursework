@@ -1,0 +1,50 @@
+[System]
+Name='rel_gauss'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='Objectivity(%)'
+Range=[0 100]
+NumMFs=3
+MF1='weak':'gaussmf',[20 1]
+MF2='medium':'gaussmf',[15 50]
+MF3='strong':'gaussmf',[10 100]
+
+[Input2]
+Name='Accuracy(%)'
+Range=[0 100]
+NumMFs=3
+MF1='low':'gaussmf',[15 0]
+MF2='medium':'gaussmf',[8.493 50]
+MF3='high':'gaussmf',[15 100]
+
+[Output1]
+Name='Reliability(A-F)'
+Range=[0 7]
+NumMFs=6
+MF1='F':'gauss2mf',[0.3 0 0.3 1]
+MF2='E':'gaussmf',[0.3 2]
+MF3='D':'gaussmf',[0.3 3]
+MF4='C':'gaussmf',[0.3 4]
+MF5='B':'gaussmf',[0.3 5]
+MF6='A':'gauss2mf',[0.3 6 0.3 7]
+
+[Rules]
+3 3, 6 (1) : 1
+3 2, 5 (1) : 1
+3 1, 4 (1) : 1
+2 3, 5 (1) : 1
+2 2, 4 (1) : 1
+2 1, 3 (1) : 1
+1 3, 3 (1) : 1
+1 2, 2 (1) : 1
+1 1, 1 (1) : 1
