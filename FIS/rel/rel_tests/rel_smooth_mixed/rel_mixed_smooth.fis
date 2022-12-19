@@ -1,5 +1,5 @@
 [System]
-Name='rel_gauss'
+Name='rel_mixed_smooth'
 Type='mamdani'
 Version=2.0
 NumInputs=2
@@ -12,14 +12,16 @@ AggMethod='max'
 DefuzzMethod='centroid'
 
 [Input1]
-Name='Objectivity(Range=[0 100]
+Name='Objectivity(%)'
+Range=[0 100]
 NumMFs=3
 MF1='weak':'gaussmf',[20 1]
-MF2='medium':'gaussmf',[15 50]
+MF2='medium':'gbellmf',[14 5 60]
 MF3='strong':'gaussmf',[10 100]
 
 [Input2]
-Name='Accuracy(Range=[0 100]
+Name='Accuracy(%)'
+Range=[0 100]
 NumMFs=3
 MF1='low':'gaussmf',[15 0]
 MF2='medium':'gaussmf',[8.493 50]

@@ -21,7 +21,7 @@ a = newfis('rel');
 
 a=addvar(a, 'input', 'Objectivity(%)', [0 100]);
 a=addmf(a, 'input', 1, 'weak', 'gaussmf',[20 1]);
-a=addmf(a, 'input', 1, 'medium', 'gaussmf',[15 50]);
+a=addmf(a, 'input', 1, 'medium', 'gbellmf',[14 5 60]);
 a=addmf(a, 'input', 1, 'strong', 'gaussmf',[10 100]);
 
 a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
@@ -79,7 +79,7 @@ for i=1:5
     a.defuzzMethod = d_Methods(i);
     for j=1:size(DummyData,1)
          eval_source_reliability = evalfis([DummyData(j, 1), DummyData(j, 2)], a); 
-         xlswrite('rel_gaussmf_output.xlsx', eval_source_reliability, 1, sprintf(xls_output_cols(i), j+1));
+         xlswrite('rel_mixed_smooth_output.xlsx', eval_source_reliability, 1, sprintf(xls_output_cols(i), j+1));
          fprintf( ...
              '%d) In(1): %.2f, In(2) %.2f, => Out: %.2f \n\n', ...
              j, ...

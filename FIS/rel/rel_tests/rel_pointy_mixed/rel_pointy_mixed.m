@@ -20,22 +20,22 @@ DummyData = xlsread(filename);
 a = newfis('rel');
 
 a=addvar(a, 'input', 'Objectivity(%)', [0 100]);
-a=addmf(a, 'input', 1, 'weak', 'gaussmf',[20 1]);
-a=addmf(a, 'input', 1, 'medium', 'gaussmf',[15 50]);
-a=addmf(a, 'input', 1, 'strong', 'gaussmf',[10 100]);
+a=addmf(a, 'input', 1, 'weak', 'trimf', [0 0 30]);
+a=addmf(a, 'input', 1, 'medium', 'trapmf', [20 50 70 85]);
+a=addmf(a, 'input', 1, 'strong', 'trimf', [70 100 100]);
 
 a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
-a=addmf(a, 'input', 2, 'low', 'gaussmf',[15 0]);
-a=addmf(a, 'input', 2, 'medium', 'gaussmf',[8.493 50]);
-a=addmf(a, 'input', 2, 'high', 'gaussmf',[15 100])
+a=addmf(a, 'input', 2, 'low', 'trimf', [0 0 45]);
+a=addmf(a, 'input', 2, 'medium', 'trimf', [30 50 70]);
+a=addmf(a, 'input', 2, 'high', 'trimf', [55 100 100])
 
 a=addvar(a, 'output', 'Reliability(A-F)', [0 7]);
-a=addmf(a, 'output', 1, 'F', 'gauss2mf',[0.3 0 0.3 1]);
-a=addmf(a, 'output', 1, 'E', 'gaussmf',[0.3 2]);
-a=addmf(a, 'output', 1, 'D', 'gaussmf',[0.3 3]);
-a=addmf(a, 'output', 1, 'C', 'gaussmf',[0.3 4]);
-a=addmf(a, 'output', 1, 'B', 'gaussmf',[0.3 5]);
-a=addmf(a, 'output', 1, 'A', 'gauss2mf',[0.3 6 0.3 7]);
+a=addmf(a, 'output', 1, 'F', 'trimf',[0 0 2]);
+a=addmf(a, 'output', 1, 'E', 'trimf',[1 2 3]);
+a=addmf(a, 'output', 1, 'D', 'trimf',[2 3 4]);
+a=addmf(a, 'output', 1, 'C', 'trimf',[3 4 5]);
+a=addmf(a, 'output', 1, 'B', 'trimf',[4 5 6]);
+a=addmf(a, 'output', 1, 'A', 'trimf',[5 7 7]);
 
 %---------------------------------------------------------------------------------------------------------------------%
  % RULES
@@ -79,7 +79,7 @@ for i=1:5
     a.defuzzMethod = d_Methods(i);
     for j=1:size(DummyData,1)
          eval_source_reliability = evalfis([DummyData(j, 1), DummyData(j, 2)], a); 
-         xlswrite('rel_gaussmf_output.xlsx', eval_source_reliability, 1, sprintf(xls_output_cols(i), j+1));
+         xlswrite('rel_pointy_mixed_output.xlsx', eval_source_reliability, 1, sprintf(xls_output_cols(i), j+1));
          fprintf( ...
              '%d) In(1): %.2f, In(2) %.2f, => Out: %.2f \n\n', ...
              j, ...

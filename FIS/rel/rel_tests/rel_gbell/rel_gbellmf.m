@@ -19,40 +19,48 @@ DummyData = xlsread(filename);
 
 a = newfis('rel');
 
-a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
-a=addmf(a, 'input', 1, 'low', 'gbellmf',[23.5502645502645 6.36 16]);
-a=addmf(a, 'input', 1, 'medium', 'gbellmf',[10 2.5 50]);
-a=addmf(a, 'input', 1, 'high', 'gbellmf',[24 6 84])
-
 a=addvar(a, 'input', 'Objectivity(%)', [0 100]);
-a=addmf(a, 'input', 2, 'weak', 'gbellmf',[17.44 3.406 17.44]);
-a=addmf(a, 'input', 2, 'medium','gbellmf',[20 10 55]);
-a=addmf(a, 'input', 2, 'strong', 'gbellmf',[14 3.5 94]);
+a=addmf(a, 'input', 1, 'weak', 'gbellmf',[17 3.4 17]);
+a=addmf(a, 'input', 1, 'medium','gbellmf',[20 10 55]);
+a=addmf(a, 'input', 1, 'strong', 'gbellmf',[14 3.5 94]);
+
+a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
+a=addmf(a, 'input', 2, 'low', 'gbellmf',[23.5 6.36 16]);
+a=addmf(a, 'input', 2, 'medium', 'gbellmf',[10 2.5 50]);
+a=addmf(a, 'input', 2, 'high', 'gbellmf',[24 6 84])
 
 a=addvar(a, 'output', 'Reliability(A-F)', [0 7]);
-a=addmf(a, 'output', 1, 'F', 'gbellmf',[0.824074074074074 3.12 0]);
+a=addmf(a, 'output', 1, 'F', 'gbellmf',[0.8 3.12 0]);
 a=addmf(a, 'output', 1, 'E', 'gbellmf',[0.5 2.5 2]);
 a=addmf(a, 'output', 1, 'D', 'gbellmf',[0.5 2.5 3]);
 a=addmf(a, 'output', 1, 'C', 'gbellmf',[0.5 2.5 4]);
 a=addmf(a, 'output', 1, 'B', 'gbellmf',[0.5 2.5 5]);
-a=addmf(a, 'output', 1, 'A', 'gbellmf',[0.67 4.24 6.70444444444444]);
+a=addmf(a, 'output', 1, 'A', 'gbellmf',[0.67 4.24 7]);
 
 %---------------------------------------------------------------------------------------------------------------------%
  % RULES
 
- rule1 = [3 3 6 1 1];
- rule2 = [3 2 5 1 1];
- rule3 = [3 1 4 1 1];
- rule4 = [2 3 5 1 1];
+ rule1 = [3 3 6 1 1]; % - A
+
+ rule2 = [3 2 5 1 1]; % - B
+ rule3 = [2 3 5 1 1]; 
+
+ rule4 = [3 1 4 1 1]; % - C
  rule5 = [2 2 4 1 1];
- rule6 = [2 1 3 1 1];
+
+ rule6 = [2 1 3 1 1]; % - D
  rule7 = [1 3 3 1 1];
- rule8 = [1 2 2 1 1];
- rule9 = [1 1 1 1 1];
+ rule8 = [2 0 3 1 1];
+
+ rule9 = [1 2 2 1 1]; % - E
+
+ rule10 = [1 1 1 1 1]; % - F
+ rule11 = [1 0 1 1 1];
+
 
  %rule base
 ruleListA = [rule1; rule2; rule3; rule4; rule5;
-    rule6; rule7; rule8; rule9;];
+    rule6; rule7; rule8; rule9; rule10; rule11;];
 
 % Add the rules to the FIS
 a = addrule(a,ruleListA);

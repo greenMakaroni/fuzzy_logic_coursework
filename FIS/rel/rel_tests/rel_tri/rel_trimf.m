@@ -19,15 +19,15 @@ DummyData = xlsread(filename);
 
 a = newfis('rel');
 
-a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
-a=addmf(a, 'input', 1, 'low', 'trimf', [0 0 45]);
-a=addmf(a, 'input', 1, 'medium', 'trimf', [30 50 70]);
-a=addmf(a, 'input', 1, 'high', 'trimf', [55 100 100])
-
 a=addvar(a, 'input', 'Objectivity(%)', [0 100]);
-a=addmf(a, 'input', 2, 'weak', 'trimf', [0 0 30]);
-a=addmf(a, 'input', 2, 'medium', 'trimf', [20 50 80]);
-a=addmf(a, 'input', 2, 'strong', 'trimf', [70 100 100]);
+a=addmf(a, 'input', 1, 'weak', 'trimf', [0 0 30]);
+a=addmf(a, 'input', 1, 'medium', 'trimf', [20 50 80]);
+a=addmf(a, 'input', 1, 'strong', 'trimf', [70 100 100]);
+
+a=addvar(a, 'input', 'Accuracy(%)', [0 100]);
+a=addmf(a, 'input', 2, 'low', 'trimf', [0 0 45]);
+a=addmf(a, 'input', 2, 'medium', 'trimf', [30 50 70]);
+a=addmf(a, 'input', 2, 'high', 'trimf', [55 100 100])
 
 a=addvar(a, 'output', 'Reliability(A-F)', [0 7]);
 a=addmf(a, 'output', 1, 'F', 'trimf',[0 0 2]);
@@ -40,19 +40,27 @@ a=addmf(a, 'output', 1, 'A', 'trimf',[5 7 7]);
 %---------------------------------------------------------------------------------------------------------------------%
  % RULES
 
- rule1 = [3 3 6 1 1];
- rule2 = [3 2 5 1 1];
- rule3 = [3 1 4 1 1];
- rule4 = [2 3 5 1 1];
+ rule1 = [3 3 6 1 1]; % - A
+
+ rule2 = [3 2 5 1 1]; % - B
+ rule3 = [2 3 5 1 1]; 
+
+ rule4 = [3 1 4 1 1]; % - C
  rule5 = [2 2 4 1 1];
- rule6 = [2 1 3 1 1];
+
+ rule6 = [2 1 3 1 1]; % - D
  rule7 = [1 3 3 1 1];
- rule8 = [1 2 2 1 1];
- rule9 = [1 1 1 1 1];
+ rule8 = [2 0 3 1 1];
+
+ rule9 = [1 2 2 1 1]; % - E
+
+ rule10 = [1 1 1 1 1]; % - F
+ rule11 = [1 0 1 1 1];
+
 
  %rule base
 ruleListA = [rule1; rule2; rule3; rule4; rule5;
-    rule6; rule7; rule8; rule9;];
+    rule6; rule7; rule8; rule9; rule10; rule11;];
 
 % Add the rules to the FIS
 a = addrule(a,ruleListA);
