@@ -14,19 +14,17 @@ DummyData = xlsread(filename);
 
 %---------------------------------------------------------------------------------------------------------------------%
 
-
                                                % Fuzzy Inference System "cred"
-
                                               
 %---------------------------------------------------------------------------------------------------------------------%
 a = newfis('cred');
 
-a=addvar(a, 'input','Validations(0-30)', [0 30]);
-a=addmf(a, 'input', 1, 'low', 'trapmf', [0 0 10 15]);
-a=addmf(a, 'input', 1, 'medium', 'trimf', [10 15 20]);
-a=addmf(a, 'input', 1, 'high', 'trapmf', [15 20 30 30]);
+a=addvar(a, 'input','Validations(0-10)', [0 10]);
+a=addmf(a, 'input', 1, 'low', 'gaussmf',[2 0]);
+a=addmf(a, 'input', 1, 'medium', 'gaussmf',[0.5 5]);
+a=addmf(a, 'input', 1, 'high', 'gaussmf',[2 10]);
 
-a=addvar(a, 'input', 'Reliability(A-F)', [0 6]);
+a=addvar(a, 'input', 'Reliability(A-F)', [0 7]);
 a=addmf(a, 'input', 2, 'A', 'gauss2mf', [0.3 6 0.3 7]);
 a=addmf(a, 'input', 2, 'B', 'gaussmf', [0.3 5]);
 a=addmf(a, 'input', 2, 'D', 'gaussmf', [0.3 4]);
@@ -35,11 +33,11 @@ a=addmf(a, 'input', 2, 'E', 'gaussmf', [0.3 2]);
 a=addmf(a, 'input', 2, 'F', 'gauss2mf', [0.3 0 0.3 1]);
 
 a=addvar(a, 'input', 'Gut(%)', [0 100]);
-a=addmf(a, 'input', 3, 'negative', 'trimf', [0 0 50]);
-a=addmf(a, 'input', 3, 'neutral', 'trimf', [35 50 65]);
-a=addmf(a, 'input', 3, 'positive', 'trimf', [50 100 100]);
+a=addmf(a, 'input', 3, 'negative', 'gaussmf',[20 0]);
+a=addmf(a, 'input', 3, 'neutral', 'gaussmf',[10 50]);
+a=addmf(a, 'input', 3, 'positive', 'gaussmf',[20 100]);
 
-a=addvar(a,'output','Credibility(1-6)', [1 6]);
+a=addvar(a,'output','Credibility(1-6)', [0 7]);
 a=addmf(a, 'output', 1, '1', 'gauss2mf', [0.3 0 0.3 1]);
 a=addmf(a, 'output', 1, '2', 'gaussmf', [0.3 2]);
 a=addmf(a, 'output', 1, '3', 'gaussmf',[0.3 3]);
@@ -50,23 +48,30 @@ a=addmf(a, 'output', 1, '6', 'gauss2mf',[0.3 6 0.3 7]);
 %---------------------------------------------------------------------------------------------------------------------%
  % RULES
 
- rule1 = [-3 1 0 1 0.5 1];
- rule2 = [-3 2 0 2 0.5 1];
- rule3 = [-3 3 0 3 0.5 1];
- rule4 = [-3 4 0 4 0.5 1];
- rule5 = [-3 5 0 5 0.5 1];
- rule6 = [-3 6 0 6 0.5 1];
- rule7 = [3 0 3 1 1 1];
- rule8 = [3 0 2 2 1 1];
- rule9 = [3 0 1 3 1 1];
- rule10 = [1 0 1 6 1 1];
- rule11 = [1 0 2 5 1 1];
- rule12 = [1 0 3 4 1 1];
- rule13 = [3 1 0 1 1 2];
+ rule1 = [-3 1 0 1 0.5 1];  % 1
+ rule2 = [-3 2 0 2 0.5 1];  % 2 
+ rule3 = [-3 3 0 3 0.5 1];  % 3
+ rule4 = [-3 4 0 4 0.5 1];  % 4
+ rule5 = [-3 5 0 5 0.5 1];  % 5
+ rule6 = [-3 6 0 6 0.5 1];  % 6
+ rule7 = [3 0 3 1 1 1]; % 1
+ rule8 = [3 0 2 2 1 1]; % 2
+ rule9 = [3 0 1 3 1 1]; % 3
+ rule10 = [1 0 1 6 1 1]; % 6
+ rule11 = [1 0 2 5 1 1]; % 5
+ rule12 = [1 0 3 4 1 1]; % 4
+ rule13 = [3 1 0 1 1 2]; % 1
+ rule14 = [-3 1 1 2 0.5 1]; % 2
+ rule15 = [-3 2 1 3 0.5 1]; % 3
+ rule16 = [-3 3 1 4 0.5 1]; % 4
+ rule17 = [-3 4 1 5 0.5 1]; % 5
+ rule18 = [-3 5 1 6 0.5 1]; % 6
+ rule19 = [-3 6 1 6 0.5 1]; % 6
 
  %rule base
 ruleListA = [rule1; rule2; rule3; rule4; rule5;
-    rule6; rule7; rule8; rule9; rule10; rule11; rule12; rule13;];
+    rule6; rule7; rule8; rule9; rule10; rule11; rule12; rule13;
+    rule14; rule15; rule16; rule17; rule18; rule19;];
 
 % Add the rules to the FIS
 a = addrule(a,ruleListA);
